@@ -1,10 +1,10 @@
-/*
-15/04/15 p.50 ÆÛÁñ¸Ç Â¥±â
-- 2½Ã°£ 30ºÐ¸¸¿¡ ¹ö±× ¾øÀÌ ¿Ï¼º Âm
-ÀßÇÑ Á¡
-- ¿©·¯ ½ºÅ×ÀÌÁö·Î È®Àå °¡´ÉÇÏ°Ô ¸¸µê
-- const »ç¿ë
-- µÞÁ¤¸® Àß ÇÔ
+ï»¿/*
+15/04/15 p.50 í¼ì¦ë§¨ ì§œê¸°
+- 2ì‹œê°„ 30ë¶„ë§Œì— ë²„ê·¸ ì—†ì´ ì™„ì„± í—¿
+ìž˜í•œ ì 
+- ì—¬ëŸ¬ ìŠ¤í…Œì´ì§€ë¡œ í™•ìž¥ ê°€ëŠ¥í•˜ê²Œ ë§Œë“¦
+- const ì‚¬ìš©
+- ë’·ì •ë¦¬ ìž˜ í•¨
 */
 
 #include <stdlib.h>
@@ -26,9 +26,9 @@ typedef struct _tagNextSpaceInfo{
 }NextSpaceInfo;
 
 /*
-°³¼ö : Count
-ÀÎµ¦½º: Index
-¹øÈ£: Number
+ê°œìˆ˜ : Count
+ì¸ë±ìŠ¤: Index
+ë²ˆí˜¸: Number
 
 = space
 # = wall
@@ -43,7 +43,7 @@ public:
 	Stage(int p_col, int p_row, char* p_stage_map)
 		:col(p_col), row(p_row)
 	{
-		//¹®ÀÚ¿­¶§¹®¿¡ 1 ´õÇÔ
+		//ë¬¸ìžì—´ë•Œë¬¸ì— 1 ë”í•¨
 		int mapSize = (p_row*(p_col + 1));
 
 		this->stageMap = new char[mapSize];

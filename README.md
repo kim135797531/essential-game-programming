@@ -1,4 +1,4 @@
-essential-game-programming
+﻿essential-game-programming
 ===========
 
 * 히라야마 타카시 - '게임 프로그래밍의 정석' 공부용 레포지토리
