@@ -6,7 +6,9 @@ void init(){
 		exit(0);
 	}
 	else{
-		Stage* stage_1 = new Stage(8, 5, &stage1Map[0][0]);
+		CKDMArray2D<char> stage_1_data = 
+			CKDMArray2D<char>(STAGE_1_ROW, STAGE_1_COL + 1, &stage1Map[0][0]);
+		Stage* stage_1 = new Stage(stage_1_data);
 		stageList[stageCount++] = stage_1;
 	}
 
@@ -62,7 +64,7 @@ Position getPlayerPos(){
 
 	for (int i = 0; i < curStage->getRowCount(); i++){
 		for (int j = 0; j < curStage->getColCount(); j++){
-			if (stageList[0]->getData(i, j) == 'p'){
+			if (curStage->getData(i, j) == 'p'){
 				ret.row = i;
 				ret.col = j;
 				return ret;
@@ -194,7 +196,7 @@ void draw(){
 
 	for (int i = 0; i < curStage->getRowCount(); i++){
 		for (int j = 0; j < curStage->getColCount(); j++){
-			cout << stageList[0]->getData(i, j);
+			cout << curStage->getData(i, j);
 		}
 		cout << endl;
 	}
@@ -208,10 +210,9 @@ void end(){
 	}
 }
 
-
 int main(){
 	init();
-
+	
 	while (gameState != FINISH){
 		draw();
 		getInput();

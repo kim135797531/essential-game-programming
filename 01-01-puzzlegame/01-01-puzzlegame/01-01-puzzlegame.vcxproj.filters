@@ -23,5 +23,8 @@
     <ClInclude Include="main.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\externals\kdm-c-library\src\library\array2d.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

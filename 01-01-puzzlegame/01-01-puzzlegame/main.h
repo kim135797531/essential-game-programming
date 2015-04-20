@@ -11,6 +11,8 @@
 #include <iostream>
 #include <string>
 
+#include "../../externals/kdm-c-library/src/library/array2d.h"
+
 using namespace std;
 
 typedef struct _tagPosition{
@@ -40,62 +42,64 @@ p = player
 
 class Stage{
 public:
-	Stage(int p_col, int p_row, char* p_stage_map)
-		:col(p_col), row(p_row)
+	Stage(CKDMArray2D<char> p_stage_map) :
+		row(p_stage_map.getRow()),
+		col(p_stage_map.getCol() - 1) //맨 뒤의 개행 문자는 스테이지 정보가 아니다
 	{
-		//문자열때문에 1 더함
-		int mapSize = (p_row*(p_col + 1));
+		
+		this->stageMap = new CKDMArray2D<char>(p_stage_map);
+		this->originalStageMap = new CKDMArray2D<char>(p_stage_map);
 
-		this->stageMap = new char[mapSize];
-		this->originalStageMap = new char[mapSize];
-		for (int i = 0; i < mapSize; i++){
-			this->stageMap[i] = p_stage_map[i];
+		for (int i = 0; i < row; i++){
+			for (int j = 0; j < col; j++){
+				char* cCurrentData = &(*originalStageMap)(i, j);
 
-			if (p_stage_map[i] == 'p' ||
-				p_stage_map[i] == 'o'){
-				this->originalStageMap[i] = ' ';
-			}
-			else if (p_stage_map[i] == '@'){
-				this->originalStageMap[i] = '.';
-			}
-			else{
-				this->originalStageMap[i] = p_stage_map[i];
+				if (*cCurrentData == 'p' ||
+					*cCurrentData == 'o'){
+					*cCurrentData = ' ';
+				}
+				else if (*cCurrentData == '@'){
+					*cCurrentData = '.';
+				}
 			}
 		}
 	}
 
-	~Stage(){
+	~Stage()
+	{
 		delete stageMap;
+		delete originalStageMap;
+		stageMap = 	originalStageMap = 0;
 	}
 
 	int getColCount(){ return col; };
 	int getRowCount(){ return row; };
 
-	char getData(int p_row, int p_col){
-		return stageMap[(col + 1)*p_row + p_col];
+	const char getData(int p_row, int p_col) const {
+		return (*stageMap)(p_row, p_col);
 	}
-	char getData(Position p_pos){
+	const char getData(const Position p_pos) const {
 		return getData(p_pos.row, p_pos.col);
 	}
 
 	void setData(int p_row, int p_col, char data){
-		stageMap[(col + 1)*p_row + p_col] = data;
+		(*stageMap)(p_row, p_col) = data;
 	}
-	void setData(Position p_pos, char data){
+	void setData(const Position p_pos, char data){
 		setData(p_pos.row, p_pos.col, data);
 	}
 
-	char getOriginalData(int p_row, int p_col){
-		return originalStageMap[(col + 1)*p_row + p_col];
+	const char getOriginalData(int p_row, int p_col) const {
+		return (*originalStageMap)(p_row, p_col);
 	}
-	char getOriginalData(Position p_pos){
+	const char getOriginalData(const Position p_pos) const {
 		return getOriginalData(p_pos.row, p_pos.col);
 	}
 private:
 	const int col;
 	const int row;
-	char* stageMap;
-	char* originalStageMap;
+	CKDMArray2D<char>* stageMap;
+	CKDMArray2D<char>* originalStageMap;
 };
 
 /*
